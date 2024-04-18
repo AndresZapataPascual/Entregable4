@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Entregable4</string>
+    <string name="Titulo1">REGISTRO</string>
+    <string name="Nombrehint">Ingrese el nombres</string>
+    <string name="Apellidohint">Ingrese un apellido</string>
+    <string name="Correohint">Ingrese su correo</string>
+    <string name="Contrasenahint">Ingrese una contraseña</string>
+    <string name="Botonañadir">Añadir Registro</string>
+    <string name="VerRegistros">Ver Registros</string>
+    <string name="Consultas">Haz Consultas</string>
+    <string name="Titulo2">DATOS INGRESADOS</string>
+    <string name="Titulo3">BUSCA REGISTROS</string>
+</resources>

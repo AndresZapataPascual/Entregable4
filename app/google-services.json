@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "844000204453",
+    "firebase_url": "https://entrega4-3fb94-default-rtdb.firebaseio.com",
+    "project_id": "entrega4-3fb94",
+    "storage_bucket": "entrega4-3fb94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844000204453:android:6ca972583ea95d25ae5f4c",
+        "android_client_info": {
+          "package_name": "com.andreszapata.entregable4"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhPnUTYkXGc6VmPBhUm9BLTUhjd6kuze0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

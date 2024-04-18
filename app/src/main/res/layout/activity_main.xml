@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/black"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:text="@string/Titulo1"
+            android:textColor="@color/white"
+            android:textSize="25sp">
+        </TextView>
+    </Toolbar>
+
+    <EditText
+        android:id="@+id/txtNombre"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="@string/Nombrehint"
+        android:inputType="textPersonName"
+        android:autofillHints="name">
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtApellido"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="@string/Apellidohint"
+        android:inputType="textPersonName"
+        android:autofillHints="name">
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtCorreo"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="@string/Correohint"
+        android:inputType="textEmailAddress"
+        android:autofillHints="emailAddress">
+    </EditText>
+
+    <EditText
+        android:id="@+id/txtPassword"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:hint="@string/Contrasenahint"
+        android:inputType="textPassword"
+        android:autofillHints="password">
+    </EditText>
+
+    <Button
+        android:id="@+id/AnadirRegistro"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/Botonañadir"
+        android:textColor="@color/black"
+        android:layout_marginBottom="50dp">
+    </Button>
+
+    <Button
+        android:id="@+id/VerRegistros"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/VerRegistros"
+        android:textColor="@color/black"
+        android:layout_marginBottom="20dp">
+    </Button>
+
+    <Button
+        android:id="@+id/Consultas"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/Consultas"
+        android:textColor="@color/black">
+    </Button>
+
+</LinearLayout>
