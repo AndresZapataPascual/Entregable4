@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <Toolbar
@@ -15,86 +16,55 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:text="@string/Titulo3"
             android:textColor="@color/white"
             android:textSize="25sp">
         </TextView>
     </Toolbar>
 
-    <TextView
-        android:id="@+id/nombreTextView"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:text="Nombre:"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"/>
-
     <EditText
-        android:id="@+id/nombreEditText"
+        android:id="@+id/busquedaNombreEditText"
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_below="@id/nombreTextView"
-        android:layout_marginTop="8dp"
-        android:inputType="text"/>
-
-    <TextView
-        android:id="@+id/correoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:text="Correo electrónico:"
-        android:textSize="18sp"
-        android:layout_below="@id/nombreEditText"
-        android:layout_marginTop="16dp"/>
+        android:hint="Ingrese nombre a buscar"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/correoEditText"
+        android:id="@+id/busquedaApellidoEditText"
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_below="@id/correoTextView"
-        android:layout_marginTop="8dp"
-        android:inputType="textEmailAddress" />
-
-    <TextView
-        android:id="@+id/apellidoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="60dp"
-        android:text="Apellido:"
-        android:textSize="18sp"
-        android:layout_below="@id/correoEditText"
-        android:layout_marginTop="16dp"/>
+        android:hint="Ingrese apellido a buscar"
+        android:layout_below="@id/busquedaNombreEditText"
+        android:layout_marginBottom="16dp"/>
 
     <EditText
-        android:id="@+id/apellidoEditText"
+        android:id="@+id/busquedaCorreoEditText"
         android:layout_width="300dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_below="@id/apellidoTextView"
-        android:layout_marginTop="8dp"
-        android:inputType="text"/>
+        android:hint="Ingrese correo a buscar"
+        android:layout_below="@id/busquedaApellidoEditText"
+        android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/consultarButton"
-        android:layout_width="300dp"
+        android:id="@+id/buscarButton"
+        android:layout_width="200dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:layout_below="@id/apellidoEditText"
+        android:layout_below="@id/busquedaCorreoEditText"
+        android:text="Buscar"
         android:layout_marginTop="16dp"
-        android:text="Consultar"
-        android:layout_marginBottom="50dp"/>
+        android:layout_marginBottom="40dp"/>
 
-
-    <TextView
-        android:id="@+id/resultadoTextView"
+    <ListView
+        android:id="@+id/resultadosListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/consultarButton"
+        android:layout_height="match_parent"
+        android:layout_below="@id/buscarButton"
         android:layout_marginTop="16dp"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"/>
-
+        android:visibility="gone"/> <!-- Ocultamos inicialmente el ListView -->
 </LinearLayout>
+

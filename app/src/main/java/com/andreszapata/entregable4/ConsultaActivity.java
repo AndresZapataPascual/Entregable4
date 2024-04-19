@@ -5,86 +5,88 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConsultaActivity extends AppCompatActivity {
 
-    private EditText correoEditText;
-    private EditText apellidoEditText;
-    private Button consultarButton;
-    private TextView resultadoTextView;
-
+    private EditText busquedaNombreEditText;
+    private EditText busquedaAppelidoEditText;
+    private EditText busquedaCorreoEditText;
+    private Button buscarButton;
+    private ListView resultadosListView;
     private DatabaseReference databaseReference;
+    private UsuarioAdapter usuarioAdapter;
+    private List<Usuario> usuarioList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consulta);
 
-        correoEditText = findViewById(R.id.correoEditText);
-        apellidoEditText = findViewById(R.id.apellidoEditText);
-        consultarButton = findViewById(R.id.consultarButton);
-        resultadoTextView = findViewById(R.id.resultadoTextView);
+        busquedaNombreEditText = findViewById(R.id.busquedaNombreEditText);
+        busquedaAppelidoEditText = findViewById(R.id.busquedaApellidoEditText);
+        busquedaCorreoEditText = findViewById(R.id.busquedaCorreoEditText);
+        buscarButton = findViewById(R.id.buscarButton);
+        resultadosListView = findViewById(R.id.resultadosListView);
+
+        usuarioList = new ArrayList<>();
+        usuarioAdapter = new UsuarioAdapter(this, usuarioList);
+        resultadosListView.setAdapter(usuarioAdapter);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("usuarios");
 
-        consultarButton.setOnClickListener(new View.OnClickListener() {
+        buscarButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                consultarDatos();
+                buscarRegistros();
             }
         });
     }
 
-    private void consultarDatos() {
-        String correo = correoEditText.getText().toString().trim();
-        String apellido = apellidoEditText.getText().toString().trim();
+    private void buscarRegistros() {
+        final String busquedaNombre = busquedaNombreEditText.getText().toString().trim();
+        final String busquedaApellido = busquedaAppelidoEditText.getText().toString().trim();
+        final String busquedaCorreo = busquedaCorreoEditText.getText().toString().trim();
 
-        if (TextUtils.isEmpty(correo) && TextUtils.isEmpty(apellido)) {
-            Toast.makeText(this, "Ingrese al menos un campo de consulta", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(busquedaNombre) && TextUtils.isEmpty(busquedaApellido) && TextUtils.isEmpty(busquedaCorreo)) {
+            Toast.makeText(this, "Ingrese al menos un criterio de búsqueda", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Query consulta;
-
-        if (!TextUtils.isEmpty(correo) && !TextUtils.isEmpty(apellido)) {
-            consulta = databaseReference.orderByChild("correo").equalTo(correo).orderByChild("apellido").equalTo(apellido);
-        } else if (!TextUtils.isEmpty(correo)) {
-            consulta = databaseReference.orderByChild("correo").equalTo(correo);
-        } else {
-            consulta = databaseReference.orderByChild("apellido").equalTo(apellido);
-        }
+        Query consulta = databaseReference.orderByChild("nombre").startAt(busquedaNombre).endAt(busquedaNombre + "\uf8ff");
 
         consulta.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                StringBuilder resultados = new StringBuilder();
+                usuarioList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Usuario usuario = snapshot.getValue(Usuario.class);
-                    // Construye el texto con los datos obtenidos
-                    resultados.append("Nombre: ").append(usuario.getNombre()).append("\n");
-                    resultados.append("Apellido: ").append(usuario.getApellido()).append("\n");
-                    resultados.append("Correo: ").append(usuario.getCorreo()).append("\n\n");
+                    if ((TextUtils.isEmpty(busquedaNombre) || usuario.getNombre().toLowerCase().contains(busquedaNombre.toLowerCase())) &&
+                            (TextUtils.isEmpty(busquedaApellido) || usuario.getApellido().toLowerCase().contains(busquedaApellido.toLowerCase())) &&
+                            (TextUtils.isEmpty(busquedaCorreo) || usuario.getCorreo().toLowerCase().contains(busquedaCorreo.toLowerCase()))) {
+                        usuarioList.add(usuario);
+                    }
                 }
-                // Actualiza el texto del TextView con los resultados
-                resultadoTextView.setText(resultados.toString());
+                usuarioAdapter.notifyDataSetChanged();
+
+                // Mostrar el ListView
+                resultadosListView.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Maneja cualquier error de la base de datos aquí
-                Toast.makeText(ConsultaActivity.this, "Error al realizar la consulta", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConsultaActivity.this, "Error al realizar la búsqueda", Toast.LENGTH_SHORT).show();
             }
         });
     }
